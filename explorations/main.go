@@ -8,8 +8,6 @@ import (
 )
 
 func main() {
-	fmt.Println("Please Enter Search Term:")
-
 	jsonExample, err := os.Open("data/example.json")
 	if err != nil {
 		fmt.Println(err)
@@ -24,6 +22,7 @@ func main() {
 
 	fmt.Println(result["users"])
 
+	// fmt.Println("Please Enter Search Term:")
 	// var term string
 	// fmt.Scanln(&term)
 
