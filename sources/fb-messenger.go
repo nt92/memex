@@ -45,10 +45,12 @@ func getMessengerRecords() []schema.Record {
 		for _, message := range messageList.List {
 			messageRecord :=
 				schema.Record{
-					ID:      "TODO",
+					// TODO: ID:      "",
 					Title:   "Messenger Message from " + message.Sender,
 					Content: message.Sender + ": " + message.Content,
 					Time:    message.Time,
+					// TODO: TokenFrequency: "",
+					// TODO: Link: "",
 				}
 			messageRecordList = append(messageRecordList, messageRecord)
 		}
@@ -75,3 +77,6 @@ func getMessengerFileList() []string {
 
 	return files
 }
+
+// TODO: remove records for "You are now connected on Messenger"
+// TODO: figure out how to handle & index names properly
