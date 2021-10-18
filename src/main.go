@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/nt92/memex/sources"
+	"github.com/nt92/memex/src/sources"
 )
 
 func main() {

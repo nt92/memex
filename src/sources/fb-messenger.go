@@ -7,7 +7,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/nt92/memex/schema"
+	"github.com/nt92/memex/src/schema"
 )
 
 type MessengerMessage struct {
@@ -22,7 +22,7 @@ type MessengerMessages struct {
 	List []MessengerMessage `json:"messages"`
 }
 
-const messengerPath = "./data/fb-messenger/messages/messages/inbox/"
+const messengerPath = "./../data/fb-messenger/messages/messages/inbox/"
 
 func getMessengerRecords() []schema.Record {
 	var messengerFiles = getMessengerFileList()

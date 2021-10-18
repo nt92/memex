@@ -1,7 +1,7 @@
 package sources
 
 import (
-	"github.com/nt92/memex/schema"
+	"github.com/nt92/memex/src/schema"
 )
 
 func GetRecords() []schema.Record {
