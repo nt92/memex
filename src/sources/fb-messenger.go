@@ -2,11 +2,13 @@ package sources
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
 
+	"github.com/nt92/memex/src/lib"
 	"github.com/nt92/memex/src/schema"
 )
 
@@ -23,15 +25,16 @@ type MessengerMessages struct {
 }
 
 const messengerPath = "./../data/fb-messenger/messages/messages/inbox/"
+const messengerPrefix = "msgr"
 
 func getMessengerRecords() []schema.Record {
 	var messengerFiles = getMessengerFileList()
 	var messageRecordList []schema.Record
 
-	// for , file := range messengerFiles {
-	for i := 0; i <= 2; i++ {
+	// for threadIndex, file := range messengerFiles {
+	for threadIndex := 0; threadIndex <= 2; threadIndex++ {
 		// currentJsonMessage, _ := os.Open(file)
-		currentJsonMessage, _ := os.Open(messengerFiles[i])
+		currentJsonMessage, _ := os.Open(messengerFiles[threadIndex])
 		defer currentJsonMessage.Close()
 
 		byteValue, _ := ioutil.ReadAll(currentJsonMessage)
@@ -42,14 +45,14 @@ func getMessengerRecords() []schema.Record {
 			log.Fatal(err)
 		}
 
-		for _, message := range messageList.List {
+		for messageIndex, message := range messageList.List {
 			messageRecord :=
 				schema.Record{
-					// TODO: ID:      "",
-					Title:   "Messenger Message from " + message.Sender,
-					Content: message.Sender + ": " + message.Content,
-					Time:    message.Time,
-					// TODO: TokenFrequency: "",
+					ID:             fmt.Sprintf("%s-%d-%d", messengerPrefix, threadIndex, messageIndex),
+					Title:          "Messenger Message from " + message.Sender,
+					Content:        message.Sender + ": " + message.Content,
+					Time:           message.Time,
+					TokenFrequency: lib.GetTokenFrequencyMap(message.Content),
 					// TODO: Link: "",
 				}
 			messageRecordList = append(messageRecordList, messageRecord)
