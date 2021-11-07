@@ -53,7 +53,6 @@ func getMessengerRecords() []schema.Record {
 					Content:        message.Sender + ": " + message.Content,
 					Time:           message.Time,
 					TokenFrequency: lib.GetTokenFrequencyMap(message.Content),
-					// TODO: Link: "",
 				}
 			messageRecordList = append(messageRecordList, messageRecord)
 		}
