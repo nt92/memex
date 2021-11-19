@@ -80,5 +80,5 @@ func getMessengerFileList() []string {
 	return files
 }
 
-// TODO: remove records for "You are now connected on Messenger"
+// TODO: possibly remove records for "You are now connected on Messenger"
 // TODO: figure out how to handle & index names properly
