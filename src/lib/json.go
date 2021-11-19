@@ -7,7 +7,7 @@ import (
 	"github.com/nt92/memex/src/schema"
 )
 
-func CreateDocsJson(records []schema.Record) {
+func CreateDocsJson(records schema.RecordInfo) {
 	json_data, _ := json.Marshal(records)
 
 	file, _ := os.OpenFile(

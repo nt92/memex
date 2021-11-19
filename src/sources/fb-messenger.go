@@ -27,9 +27,9 @@ type MessengerMessages struct {
 const messengerPath = "./../data/fb-messenger/messages/messages/inbox/"
 const messengerPrefix = "msgr"
 
-func getMessengerRecords() []schema.Record {
+func getMessengerRecords() schema.RecordInfo {
 	var messengerFiles = getMessengerFileList()
-	var messageRecordList []schema.Record
+	messageRecordMap := make(schema.RecordInfo)
 
 	// for threadIndex, file := range messengerFiles {
 	for threadIndex := 0; threadIndex <= 2; threadIndex++ {
@@ -46,19 +46,20 @@ func getMessengerRecords() []schema.Record {
 		}
 
 		for messageIndex, message := range messageList.List {
+			messageID := fmt.Sprintf("%s-%d-%d", messengerPrefix, threadIndex, messageIndex)
 			messageRecord :=
 				schema.Record{
-					ID:             fmt.Sprintf("%s-%d-%d", messengerPrefix, threadIndex, messageIndex),
+					ID:             messageID,
 					Title:          "Messenger Message from " + message.Sender,
 					Content:        message.Sender + ": " + message.Content,
 					Time:           message.Time,
 					TokenFrequency: lib.GetTokenFrequencyMap(message.Content),
 				}
-			messageRecordList = append(messageRecordList, messageRecord)
+			messageRecordMap[messageID] = messageRecord
 		}
 	}
 
-	return messageRecordList
+	return messageRecordMap
 }
 
 func getMessengerFileList() []string {
@@ -82,3 +83,4 @@ func getMessengerFileList() []string {
 
 // TODO: possibly remove records for "You are now connected on Messenger"
 // TODO: figure out how to handle & index names properly
+// TODO: handle emojis somehow

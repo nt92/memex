@@ -25,3 +25,6 @@ type Record struct {
 	// A relevant timestamp for the item
 	Time int `json:"timestamp"`
 }
+
+// Turn the records into a map so that we can search based on the ID key
+type RecordInfo map[string]Record
