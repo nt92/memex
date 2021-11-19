@@ -27,9 +27,10 @@ type MessengerMessages struct {
 const messengerPath = "./../data/fb-messenger/messages/messages/inbox/"
 const messengerPrefix = "msgr"
 
-func getMessengerRecords() schema.RecordInfo {
+func getMessengerRecords() (schema.RecordInfo, schema.TokenIndex) {
 	var messengerFiles = getMessengerFileList()
 	messageRecordMap := make(schema.RecordInfo)
+	tokenIndexMap := make(schema.TokenIndex)
 
 	// for threadIndex, file := range messengerFiles {
 	for threadIndex := 0; threadIndex <= 2; threadIndex++ {
@@ -47,19 +48,24 @@ func getMessengerRecords() schema.RecordInfo {
 
 		for messageIndex, message := range messageList.List {
 			messageID := fmt.Sprintf("%s-%d-%d", messengerPrefix, threadIndex, messageIndex)
+			tokens := lib.GetTokenFrequencyMap(message.Content)
+
+			// TODO: function to take list of tokens and ID and append the
+			// ID to the list [value] of the [key] for the given token
+
 			messageRecord :=
 				schema.Record{
 					ID:             messageID,
 					Title:          "Messenger Message from " + message.Sender,
 					Content:        message.Sender + ": " + message.Content,
 					Time:           message.Time,
-					TokenFrequency: lib.GetTokenFrequencyMap(message.Content),
+					TokenFrequency: tokens,
 				}
 			messageRecordMap[messageID] = messageRecord
 		}
 	}
 
-	return messageRecordMap
+	return messageRecordMap, tokenIndexMap
 }
 
 func getMessengerFileList() []string {

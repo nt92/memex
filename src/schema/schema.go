@@ -28,3 +28,6 @@ type Record struct {
 
 // Turn the records into a map so that we can search based on the ID key
 type RecordInfo map[string]Record
+
+// Maps a token to a list of IDs that it appears in
+type TokenIndex map[string][]string

@@ -20,6 +20,15 @@ func CreateDocsJson(records schema.RecordInfo) {
 	file.Write(json_data)
 }
 
-func CreateIndexJson() {
+func CreateIndexJson(tokenIndex schema.TokenIndex) {
+	json_data, _ := json.Marshal(tokenIndex)
 
+	file, _ := os.OpenFile(
+		"./../output/index.json",
+		os.O_WRONLY|os.O_TRUNC|os.O_CREATE,
+		0666,
+	)
+
+	defer file.Close()
+	file.Write(json_data)
 }
