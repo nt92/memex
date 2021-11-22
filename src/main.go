@@ -6,7 +6,8 @@ import (
 )
 
 func main() {
-	records, tokens := sources.GetRecordsAndTokens()
+	records := sources.GetRecords()
+	tokens := sources.GetTokens()
 
 	// for _, record := range records {
 	// 	fmt.Println(record)

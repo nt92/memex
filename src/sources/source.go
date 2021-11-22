@@ -4,7 +4,12 @@ import (
 	"github.com/nt92/memex/src/schema"
 )
 
-func GetRecordsAndTokens() (schema.RecordInfo, schema.TokenIndex) {
-	var messengerRecords, messengerTokens = getMessengerRecords()
-	return messengerRecords, messengerTokens
+func GetRecords() schema.RecordInfo {
+	var messengerRecords = getMessengerRecords()
+	return messengerRecords
+}
+
+func GetTokens() schema.TokenIndex {
+	var messengerTokens = getMessengerTokens()
+	return messengerTokens
 }

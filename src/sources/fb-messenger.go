@@ -27,10 +27,9 @@ type MessengerMessages struct {
 const messengerPath = "./../data/fb-messenger/messages/messages/inbox/"
 const messengerPrefix = "msgr"
 
-func getMessengerRecords() (schema.RecordInfo, schema.TokenIndex) {
+func getMessengerRecords() schema.RecordInfo {
 	var messengerFiles = getMessengerFileList()
 	messageRecordMap := make(schema.RecordInfo)
-	tokenIndexMap := make(schema.TokenIndex)
 
 	// for threadIndex, file := range messengerFiles {
 	for threadIndex := 0; threadIndex <= 2; threadIndex++ {
@@ -50,9 +49,6 @@ func getMessengerRecords() (schema.RecordInfo, schema.TokenIndex) {
 			messageID := fmt.Sprintf("%s-%d-%d", messengerPrefix, threadIndex, messageIndex)
 			tokens := lib.GetTokenFrequencyMap(message.Content)
 
-			// TODO: function to take list of tokens and ID and append the
-			// ID to the list [value] of the [key] for the given token
-
 			messageRecord :=
 				schema.Record{
 					ID:             messageID,
@@ -65,7 +61,43 @@ func getMessengerRecords() (schema.RecordInfo, schema.TokenIndex) {
 		}
 	}
 
-	return messageRecordMap, tokenIndexMap
+	return messageRecordMap
+}
+
+func getMessengerTokens() schema.TokenIndex {
+	var messengerFiles = getMessengerFileList()
+	tokenMap := make(schema.TokenIndex)
+
+	// for threadIndex, file := range messengerFiles {
+	for threadIndex := 0; threadIndex <= 2; threadIndex++ {
+		// currentJsonMessage, _ := os.Open(file)
+		currentJsonMessage, _ := os.Open(messengerFiles[threadIndex])
+		defer currentJsonMessage.Close()
+
+		byteValue, _ := ioutil.ReadAll(currentJsonMessage)
+
+		var messageList MessengerMessages
+		err := json.Unmarshal([]byte(byteValue), &messageList)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		for messageIndex, message := range messageList.List {
+			messageID := fmt.Sprintf("%s-%d-%d", messengerPrefix, threadIndex, messageIndex)
+			tokens := lib.GetTokenFrequencyMap(message.Content)
+
+			for token := range tokens {
+				_, ok := tokenMap[token]
+				if ok {
+					tokenMap[token] = append(tokenMap[token], messageID)
+				} else {
+					tokenMap[token] = []string{messageID}
+				}
+			}
+		}
+	}
+
+	return tokenMap
 }
 
 func getMessengerFileList() []string {
