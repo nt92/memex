@@ -6,7 +6,7 @@ This is my attempt at making a tool that will be able to pull in data from many 
 ## Progress
 As of November, I've got a working MVP that does some basic functionality e.g. (1) I pass in a search term (2) it goes through a generated `index.json` file from a subset of my ~~Facebook~~ Meta Messenger history and then (3) spits out a list of all of the messages where the search term has been referenced.
 
-INSERT VIDEO
+![MVP Recording](static/mvp-recording.mov)
 
 This is great, but there's still a lot to do! Here's a non-exhaustive things that I hope to add to this in the coming months:
 * more data sources

@@ -32,7 +32,7 @@ func getMessengerRecords() schema.RecordInfo {
 	messageRecordMap := make(schema.RecordInfo)
 
 	// for threadIndex, file := range messengerFiles {
-	for threadIndex := 0; threadIndex <= 2; threadIndex++ {
+	for threadIndex := 0; threadIndex <= 100; threadIndex++ {
 		// currentJsonMessage, _ := os.Open(file)
 		currentJsonMessage, _ := os.Open(messengerFiles[threadIndex])
 		defer currentJsonMessage.Close()
@@ -54,7 +54,7 @@ func getMessengerRecords() schema.RecordInfo {
 					ID:             messageID,
 					Title:          "Messenger Message from " + message.Sender,
 					Content:        message.Sender + ": " + message.Content,
-					Time:           message.Time,
+					Time:           message.Time / 1000,
 					TokenFrequency: tokens,
 				}
 			messageRecordMap[messageID] = messageRecord
@@ -69,7 +69,7 @@ func getMessengerTokens() schema.TokenIndex {
 	tokenMap := make(schema.TokenIndex)
 
 	// for threadIndex, file := range messengerFiles {
-	for threadIndex := 0; threadIndex <= 2; threadIndex++ {
+	for threadIndex := 0; threadIndex <= 100; threadIndex++ {
 		// currentJsonMessage, _ := os.Open(file)
 		currentJsonMessage, _ := os.Open(messengerFiles[threadIndex])
 		defer currentJsonMessage.Close()

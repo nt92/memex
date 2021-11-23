@@ -50,10 +50,10 @@ func SearchIndex(searchTerm string) {
 		log.Fatal(err)
 	}
 
-	SearchRecords(tokenIndex[searchTerm])
+	searchRecords(tokenIndex[searchTerm])
 }
 
-func SearchRecords(IDs []string) {
+func searchRecords(IDs []string) {
 	recordsFile, _ := os.Open(docsJsonPath)
 	defer recordsFile.Close()
 	byteValue, _ := ioutil.ReadAll(recordsFile)
@@ -66,6 +66,7 @@ func SearchRecords(IDs []string) {
 
 	for _, ID := range IDs {
 		recordContent := recordInfo[ID].Content
-		fmt.Println(recordContent)
+		recordTime := recordInfo[ID].Time
+		fmt.Println(TimestampToDate(recordTime), recordContent)
 	}
 }
