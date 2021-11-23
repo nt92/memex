@@ -1,10 +1,10 @@
 # Nikhil's Personal Search Engine (Memex)
----
+
 ## Overview
 This is my attempt at making a tool that will be able to pull in data from many different sources where I've left a digital footprint and aggregate them into a uniform index that I can search through.
 
 ## Progress
-As of November, I've got a working MVP that does some basic functionality e.g. (1) I pass in a search term (2) it goes through a generated `index.json` file from my ~~Facebook~~ Meta Messenger history and then (3) spits out a list of all of the messages where the search term has been referenced.
+As of November, I've got a working MVP that does some basic functionality e.g. (1) I pass in a search term (2) it goes through a generated `index.json` file from a subset of my ~~Facebook~~ Meta Messenger history and then (3) spits out a list of all of the messages where the search term has been referenced.
 
 INSERT VIDEO
 
