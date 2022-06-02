@@ -1,4 +1,4 @@
-# Nikhil's Personal Search Engine (Memex)
+# Nikhil's Search Engine (Memex)
 
 ## Overview
 This is my attempt at making a tool that will be able to pull in data from many different sources where I've left a digital footprint and aggregate them into a uniform index that I can search through.
@@ -19,6 +19,12 @@ This is great, but there's still a lot to do! Here's a non-exhaustive things tha
 * stemming to tokens to reduce repetiton
 * a `react.js` UI to easily search
 * *much more*
+
+## Importer Guide
+
+### Messenger
+
+### iMessage
 
 ## Context
 *pulled from my [blog post](https://nikhilthota.com/writing/memex/) on the topic*

@@ -32,7 +32,7 @@ func getMessengerRecords() schema.RecordInfo {
 	messageRecordMap := make(schema.RecordInfo)
 
 	// for threadIndex, file := range messengerFiles {
-	for threadIndex := 0; threadIndex <= 100; threadIndex++ {
+	for threadIndex := 0; threadIndex <= 10; threadIndex++ {
 		// currentJsonMessage, _ := os.Open(file)
 		currentJsonMessage, _ := os.Open(messengerFiles[threadIndex])
 		defer currentJsonMessage.Close()

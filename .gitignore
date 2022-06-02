@@ -1,4 +1,6 @@
+.idea/
 .vscode/
 data/
 output/
+memex.iml
 .DS_Store

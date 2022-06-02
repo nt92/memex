@@ -1,6 +1,7 @@
 package schema
 
 /*
+Record
 This record represents the data that will be stored in the inverted index.
 Each piece of content that can be surfaced to the user will conform to this
 format — the client-side index will utilize this.
@@ -26,8 +27,8 @@ type Record struct {
 	Time int `json:"timestamp"`
 }
 
-// Turn the records into a map so that we can search based on the ID key
+// RecordInfo turns the records into a map so that we can search based on the ID key
 type RecordInfo map[string]Record
 
-// Maps a token to a list of IDs that it appears in
+// TokenIndex maps a token to a list of IDs that it appears in
 type TokenIndex map[string][]string
