@@ -4,3 +4,6 @@ data/
 output/
 personal search engine.iml
 .DS_Store
+
+*/__pycache__/
+*/*/__pycache__/
