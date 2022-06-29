@@ -1,3 +1,4 @@
+import json
 from typing import Dict
 
 
@@ -9,9 +10,9 @@ class Record:
             record_id: str,
             title: str,
             content: str,
-            link: str,
             frequency: Dict[str, int],
-            time: int
+            time: int,
+            link="",
     ):
         # A globally unique identifier for this item across all items
         # It's a 2 letter prefix for mod (e.g. "tw" for Tweets) and a number
@@ -26,3 +27,7 @@ class Record:
         self.frequency = frequency
         # A relevant timestamp for the item
         self.time = time
+
+    def to_json(self):
+        return json.dumps(self, default=lambda o: o.__dict__,
+                          sort_keys=True, indent=4)

@@ -6,3 +6,9 @@ from memex.schema.record import Record
 class RecordInfo:
     def __init__(self, record_map: Dict[str, Record]):
         self.record_map = record_map
+
+    def add_record(self, key: str, value: Record):
+        self.record_map[key] = [value]
+
+    def get_dict(self):
+        return self.record_map
