@@ -1,3 +1,4 @@
+import json
 from typing import Dict, Set
 
 
@@ -8,3 +9,7 @@ class TokenIndex:
 
     def get_token_index(self):
         return self.index
+
+    def to_json(self):
+        return json.dumps(self.index, default=lambda o: str(o),
+                          sort_keys=True, indent=4)

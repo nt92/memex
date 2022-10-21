@@ -2,7 +2,7 @@ from typing import Dict, List
 
 #  Borrowing list of punctuation & stopwords from https://github.dev/thesephist/monocle/blob/main/lib/tokenizer.ink
 punctuation = {".", "?", "!", ",", ":", ";", "-", "(", ")", "\"", "'", "{", "}", "[", "]", "#", "<", ">", "\\",
-               "~", "*", "_", "|", "%", "/"}
+               "~", "*", "_", "|", "%", "/", "\n"}
 stopwords = {"i", "me", "my", "myself", "we", "our", "ours", "ourselves", "you", "your", "'re", "yours", "yourself",
              "yourselves", "he", "him", "his", "himself", "she", "her", "hers", "herself", "it", "its", "itself",
              "they", "them", "their", "theirs", "themselves", "what", "which", "who", "whom", "this", "that", "these",

@@ -1,3 +1,4 @@
+import json
 from typing import Dict
 from memex.schema.record import Record
 
@@ -12,3 +13,7 @@ class RecordInfo:
 
     def get_dict(self):
         return self.record_map
+
+    def to_json(self):
+        return json.dumps(self.record_map, default=lambda o: o.__dict__,
+                          sort_keys=True, indent=4)
