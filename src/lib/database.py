@@ -21,7 +21,7 @@ class Database:
                 self.conn.commit()
             return cursor.fetchall()
         except Exception as e:
-            print("Exception occured while executing Query: {}".format(query))
+            print("Exception occurred while executing Query: {}".format(query))
             print(e)
             return False
 
@@ -55,6 +55,6 @@ class Database:
     def search(self, term):
         """Searches the database for the term"""
         search_query = """
-        SELECT * FROM records WHERE content MATCH ?;
+        SELECT * FROM records WHERE content MATCH ? ORDER BY rank;
         """
         return self.execute_query(search_query, term)

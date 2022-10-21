@@ -10,7 +10,7 @@ messenger_path = "./data/fb-messenger/messages/messages/inbox/*/*.json"
 messenger_prefix = "msgr"
 
 
-def get_messenger_records_and_tokens(db: Database):
+def get_messenger_records(db: Database):
     messenger_json_list = glob.glob(messenger_path)
 
     for file_index, file in enumerate(messenger_json_list, len(messenger_json_list) - 1):
@@ -23,9 +23,8 @@ def get_messenger_records_and_tokens(db: Database):
                 message_content = re.sub(r'[\xc2-\xf4][\x80-\xbf]+',
                                          lambda m: m.group(0).encode('latin1').decode('utf8'), message["content"])
 
-                source = messenger_prefix
                 title = "Messenger Thread with " + data["title"]
                 content = message["sender_name"] + ": " + message_content
-                time = message["timestamp_ms"]
+                time = message["timestamp_ms"]/1000
 
-                db.save_record(source, title, content, time, "")
+                db.save_record(messenger_prefix, title, content, time, "")
