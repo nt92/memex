@@ -5,7 +5,6 @@ class Database:
     def __init__(self, dbname="./db/records.db"):
         self.dbname = dbname
         self.conn = sqlite3.connect(dbname)
-        self.setup()
 
     def execute_query(self, query, query_args=None, commit=False):
         """Executes the SQL query 'query'. Commits the connection
@@ -30,7 +29,32 @@ class Database:
         """Creates the tables required for the database"""
         setup_query = """
         CREATE VIRTUAL TABLE IF NOT EXISTS records USING fts5(
+            source,
+            title,
             content,
+            timestamp,
+            link,
         );
         """
         self.execute_query(setup_query, commit=True)
+
+    def reset(self):
+        """Resets the database by dropping the tables"""
+        reset_query = """
+        DROP TABLE IF EXISTS records;
+        """
+        self.execute_query(reset_query, commit=True)
+
+    def save_record(self, source, title, content, timestamp, link):
+        """Saves the record to the database"""
+        save_query = """
+        INSERT INTO records VALUES (?, ?, ?, ?, ?);
+        """
+        self.execute_query(save_query, (source, title, content, timestamp, link), commit=True)
+
+    def search(self, term):
+        """Searches the database for the term"""
+        search_query = """
+        SELECT * FROM records WHERE content MATCH ?;
+        """
+        return self.execute_query(search_query, term)
