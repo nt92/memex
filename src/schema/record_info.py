@@ -1,6 +1,6 @@
 import json
 from typing import Dict
-from memex.schema.record import Record
+from src.schema.record import Record
 
 
 # RecordInfo turns the records into a map so that we can search based on the ID key

@@ -16,6 +16,7 @@ stopwords = {"i", "me", "my", "myself", "we", "our", "ours", "ourselves", "you",
              "'s", "'m", "'ve"}
 
 
+# TODO: add support for (or ignore) unicode characters
 def get_token_frequency_map(content: str) -> Dict[str, int]:
     # first, get the list of tokens from the content
     tokens = []

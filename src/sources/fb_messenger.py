@@ -2,10 +2,10 @@ import glob
 import json
 from typing import Tuple
 
-from memex.lib.tokenizer import get_token_frequency_map
-from memex.schema.record import Record
-from memex.schema.record_info import RecordInfo
-from memex.schema.token_index import TokenIndex
+from src.lib.tokenizer import get_token_frequency_map
+from src.schema.record import Record
+from src.schema.record_info import RecordInfo
+from src.schema.token_index import TokenIndex
 
 import re
 
@@ -20,13 +20,12 @@ def get_messenger_records_and_tokens() -> Tuple[RecordInfo, TokenIndex]:
     messenger_token_map = TokenIndex({})
 
     for file_index, file in enumerate(messenger_json_list, len(messenger_json_list) - 1):
-        print(file)
         with open(file, "r") as f:
             data = json.load(f)
 
             messages_with_content = (messages for messages in data["messages"] if 'content' in messages)
             for message_index, message in enumerate(messages_with_content):
-                # msgr saves content in a weird way so we have to decode it
+                # msgr saves special char content in a weird way so we have to decode it
                 message_content = re.sub(r'[\xc2-\xf4][\x80-\xbf]+',
                                          lambda m: m.group(0).encode('latin1').decode('utf8'), message["content"])
 
@@ -44,8 +43,5 @@ def get_messenger_records_and_tokens() -> Tuple[RecordInfo, TokenIndex]:
                         messenger_token_map.get_token_index()[token].add(message_id)
                     else:
                         messenger_token_map.get_token_index()[token] = {message_id}
-
-    # for message_record in messenger_record_map.get_dict().values():
-        # print(message_record[0].to_json())
 
     return messenger_record_map, messenger_token_map
