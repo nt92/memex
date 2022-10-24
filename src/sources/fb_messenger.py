@@ -1,9 +1,12 @@
 import glob
 import json
+from datetime import datetime
 
 from src.lib.database import Database
 
 import re
+
+from src.lib.timestamp import from_timestamp
 
 messenger_path = "./data/fb-messenger/messages/messages/inbox/*/*.json"
 # messenger_path = "./data/fb-messenger/messages/messages/inbox/mackenziepatel_8sbrouv7sg/*.json"
@@ -23,8 +26,19 @@ def get_messenger_records(db: Database):
                 message_content = re.sub(r'[\xc2-\xf4][\x80-\xbf]+',
                                          lambda m: m.group(0).encode('latin1').decode('utf8'), message["content"])
 
+                if content_filter(message_content):
+                    continue
+
                 title = "Messenger Thread with " + data["title"]
                 content = message["sender_name"] + ": " + message_content
-                time = message["timestamp_ms"]/1000
+                time = round(message["timestamp_ms"]/1000)
 
                 db.save_record(messenger_prefix, title, content, time, "")
+
+
+def content_filter(content):
+    filters = ['missed a call', 'missed your call', 'Reacted']
+    for filter_str in filters:
+        if filter_str in content:
+            return True
+    return False

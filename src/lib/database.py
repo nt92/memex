@@ -1,5 +1,7 @@
 import sqlite3
 
+from src.lib.timestamp import date_to_range
+
 
 class Database:
     def __init__(self, dbname="./db/records.db"):
@@ -58,3 +60,11 @@ class Database:
         SELECT * FROM records WHERE content MATCH ? ORDER BY rank;
         """
         return self.execute_query(search_query, term)
+
+    def search_day(self, day):
+        """Searches the database for the term"""
+        [start, end] = date_to_range(day)
+        search_query = """
+        SELECT * FROM records WHERE timestamp > ? AND timestamp < ? ORDER BY rank;
+        """
+        return self.execute_query(search_query, (start, end))

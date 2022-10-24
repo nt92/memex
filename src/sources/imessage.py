@@ -1,20 +1,19 @@
 import sqlite3
-from datetime import datetime
 
 from src.lib.database import Database
+from src.lib.timestamp import to_timestamp
 
 imessage_path = "./data/imessage/chat.db"
 # imessage_path = "~/Library/Messages/chat.db"
 imessage_prefix = "imsg"
 
-# Apple's epoch starts on January 1st, 2001 for some reason...
-# http://apple.stackexchange.com/questions/114168
-epoch = 978307200
-
 
 def get_imessage_records(db: Database):
     conn = sqlite3.connect(imessage_path)
     cur = conn.cursor()
+
+    # Apple's epoch starts on January 1st, 2001 for some reason...
+    # http://apple.stackexchange.com/questions/114168
     messages = cur.execute("""
     SELECT
         chat.chat_identifier,
@@ -26,11 +25,13 @@ def get_imessage_records(db: Database):
     JOIN chat_message_join ON chat. "ROWID" = chat_message_join.chat_id
     JOIN message ON chat_message_join.message_id = message. "ROWID"
     ORDER BY
-        message_date ASC
-    LIMIT 100;
+        message_date ASC;
     """)
     for message in messages:
-        title = "iMessage Thread with " + message[0]
-        content = 'Me: ' + message[1] if message[3] else 'Other: ' + message[1]
-        time = round(datetime.strptime(message[2], "%Y-%m-%d %H:%M:%S").timestamp())
-        db.save_record(imessage_prefix, title, content, time, "")
+        if message[1] is not None:
+            title = "iMessage Thread with " + message[0]
+            content = 'Me: ' + message[1] if message[3] else 'Other: ' + message[1]
+            time = to_timestamp(message[2])
+            db.save_record(imessage_prefix, title, content, time, "")
+
+# TODO: Get a contact's name from Contacts.app
