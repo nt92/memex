@@ -65,6 +65,6 @@ class Database:
         """Searches the database for the term"""
         [start, end] = date_to_range(day)
         search_query = """
-        SELECT * FROM records WHERE timestamp > ? AND timestamp < ? ORDER BY rank;
+        SELECT * FROM records WHERE timestamp > ? AND timestamp < ? ORDER BY timestamp;
         """
         return self.execute_query(search_query, (start, end))

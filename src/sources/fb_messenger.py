@@ -42,3 +42,5 @@ def content_filter(content):
         if filter_str in content:
             return True
     return False
+
+# TODO: Create a more scalable system for content filtering on a per-integration basis
