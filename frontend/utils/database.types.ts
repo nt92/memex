@@ -34,6 +34,16 @@ export interface Database {
           avatar_url?: string | null
           website?: string | null
         }
+      },
+      records: {
+        Row: {
+          id: string
+          source: string
+          title: string
+          content: string
+          time: string
+          link: string | null
+        }
       }
     }
     Views: {
