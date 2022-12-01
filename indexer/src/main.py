@@ -1,6 +1,6 @@
-from src.lib.database import Database
-from src.lib.timestamp import from_timestamp, date_to_range
-from src.sources.source import get_records
+from lib.database2 import Database
+from lib.timestamp import from_timestamp, date_to_range
+from sources.source import get_records
 
 
 def main():
@@ -14,8 +14,7 @@ def main():
 
     # Re-index
     if choice == 1:
-        db.reset()
-        db.setup()
+        # db.reset()
 
         get_records(db)
 

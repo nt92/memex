@@ -35,7 +35,6 @@ export default function Dashboard({ session }: { session: Session }) {
       alert('Error loading user data!')
       console.log(error)
     } finally {
-      console.log(records)
       setLoading(false)
     }
   }

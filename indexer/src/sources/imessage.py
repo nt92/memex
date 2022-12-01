@@ -1,7 +1,7 @@
 import sqlite3
 
-from src.lib.database import Database
-from src.lib.timestamp import to_timestamp
+from indexer.src.lib.database2 import Database
+from indexer.src.lib.timestamp import to_timestamp
 
 imessage_path = "./data/imessage/chat.db"
 # imessage_path = "~/Library/Messages/chat.db"
