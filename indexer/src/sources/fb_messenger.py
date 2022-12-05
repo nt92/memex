@@ -7,8 +7,8 @@ import re
 
 from indexer.src.lib.timestamp import from_timestamp
 
-# messenger_path = "./data/fb-messenger/messages/messages/inbox/*/*.json"
-messenger_path = "./indexer/data/fb-messenger/messages/messages/inbox/mackenziepatel_8sbrouv7sg/*.json"
+messenger_path = "./indexer/data/fb-messenger/messages/messages/inbox/*/*.json"
+# messenger_path = "./indexer/data/fb-messenger/messages/messages/inbox/mackenziepatel_8sbrouv7sg/*.json"
 messenger_prefix = "msgr"
 
 
@@ -33,9 +33,7 @@ def get_messenger_records(db: Database):
                 content = message["sender_name"] + ": " + message_content
                 time = from_timestamp(round(message["timestamp_ms"]/1000)).isoformat()
 
-                print(time)
-                db_entries.append({'source': messenger_prefix, 'title': title, 'content': content, 'time': time, 'link': file})
-                # db.save_record(messenger_prefix, title, content, time, "")
+                db_entries.append({'source': messenger_prefix, 'title': title, 'content': content, 'time': time, 'link': ''})
             db.save_records(db_entries)
 
 
