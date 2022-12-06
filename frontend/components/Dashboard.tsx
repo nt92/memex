@@ -22,7 +22,8 @@ export default function Dashboard({ session }: { session: Session }) {
       let { data, error, status } = await supabase
         .from('records')
         .select(`id, source, title, content, time, link`)
-        .textSearch('content', searchTerm)
+        .like('content', '%' + searchTerm + '%')
+        .order('time', { ascending: false })
 
       if (error && status !== 406) {
         throw error

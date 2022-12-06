@@ -7,8 +7,8 @@ import re
 
 from indexer.src.lib.timestamp import from_timestamp
 
-messenger_path = "./indexer/data/fb-messenger/messages/messages/inbox/*/*.json"
-# messenger_path = "./indexer/data/fb-messenger/messages/messages/inbox/mackenziepatel_8sbrouv7sg/*.json"
+messenger_path = "./indexer/data/fb-messenger/messages/*/*.json"
+# messenger_path = "./indexer/data/fb-messenger/messages/mackenziepatel_8sbrouv7sg/*.json"
 messenger_prefix = "msgr"
 
 
