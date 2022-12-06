@@ -1,7 +1,7 @@
-import React, {useState} from 'react'
-import {parseDate} from "../utils/utils";
-import {useSupabaseClient, useUser} from "@supabase/auth-helpers-react";
-import {Database} from "../utils/database.types";
+import React, { useState } from 'react'
+import { parseDate } from '../utils/utils'
+import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
+import { Database } from '../utils/database.types'
 type Record = Database['public']['Tables']['records']['Row']
 
 const DateView = () => {
@@ -9,19 +9,21 @@ const DateView = () => {
   const user = useUser()
   const [date, setDate] = useState('')
   const [records, setRecords] = useState<Record[]>([])
-  const [loading, setLoading] = useState(true)
+  // const [loading, setLoading] = useState(true)
 
   async function getRecordsByDates() {
     try {
-      setLoading(true)
+      // setLoading(true)
       if (!user) throw new Error('No user')
 
       const dateObj = new Date(date + ' 00:00:00')
       const tzOffst = dateObj.getTimezoneOffset() * 60000
       const startDate = new Date(dateObj.getTime() + tzOffst).toISOString()
-      const endDate = new Date(dateObj.getTime() + tzOffst + 86400000).toISOString()
+      const endDate = new Date(
+        dateObj.getTime() + tzOffst + 86400000
+      ).toISOString()
 
-      let { data, error, status } = await supabase
+      const { data, error, status } = await supabase
         .from('records')
         .select(`id, source, title, content, time, link`)
         .gte('time', startDate)
@@ -39,7 +41,7 @@ const DateView = () => {
       alert('Error loading user data!')
       console.log(error)
     } finally {
-      setLoading(false)
+      // setLoading(false)
     }
   }
 
@@ -61,9 +63,13 @@ const DateView = () => {
         </button>
       </div>
       <ul className="mt-3 list-none">
-        {records.map(record => (
-          <li key={record.id} className="py-1 px-3 rounded-md text-sm font-medium leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800">
-            [{parseDate(record.time)}] {record.time} {record.title}: {record.content}
+        {records.map((record) => (
+          <li
+            key={record.id}
+            className="py-1 px-3 rounded-md text-sm font-medium leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
+          >
+            [{parseDate(record.time)}] {record.time} {record.title}:{' '}
+            {record.content}
           </li>
         ))}
       </ul>

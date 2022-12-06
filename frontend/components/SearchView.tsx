@@ -1,7 +1,7 @@
-import React, {useState} from 'react'
-import {useSupabaseClient, useUser} from "@supabase/auth-helpers-react";
-import {Database} from "../utils/database.types";
-import {parseDate} from "../utils/utils";
+import React, { useState } from 'react'
+import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
+import { Database } from '../utils/database.types'
+import { parseDate } from '../utils/utils'
 type Record = Database['public']['Tables']['records']['Row']
 
 export default function SearchView() {
@@ -9,14 +9,14 @@ export default function SearchView() {
   const user = useUser()
   const [searchTerm, setSearchTerm] = useState('')
   const [records, setRecords] = useState<Record[]>([])
-  const [loading, setLoading] = useState(true)
+  // const [loading, setLoading] = useState(true)
 
   async function getRecordsBySearch() {
     try {
-      setLoading(true)
+      // setLoading(true)
       if (!user) throw new Error('No user')
 
-      let { data, error, status } = await supabase
+      const { data, error, status } = await supabase
         .from('records')
         .select(`id, source, title, content, time, link`)
         // TODO: eventually figure out a better way to do a FTS instead
@@ -34,7 +34,7 @@ export default function SearchView() {
       alert('Error loading user data!')
       console.log(error)
     } finally {
-      setLoading(false)
+      // setLoading(false)
     }
   }
 
@@ -57,8 +57,11 @@ export default function SearchView() {
         </button>
       </div>
       <ul className="mt-3 list-none">
-        {records.map(record => (
-          <li key={record.id} className="py-1 px-3 rounded-md text-sm font-medium leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800">
+        {records.map((record) => (
+          <li
+            key={record.id}
+            className="py-1 px-3 rounded-md text-sm font-medium leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
+          >
             [{parseDate(record.time)}] {record.title}: {record.content}
           </li>
         ))}

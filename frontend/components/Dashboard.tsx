@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Session } from '@supabase/auth-helpers-react'
-import DateView from "./DateView";
-import SearchView from "./SearchView";
+import DateView from './DateView'
+import SearchView from './SearchView'
 
 export default function Dashboard({ session }: { session: Session }) {
   const [isSearch, setIsSearch] = useState(true)
@@ -19,9 +19,7 @@ export default function Dashboard({ session }: { session: Session }) {
       >
         {isSearch ? 'Switch to Date' : 'Switch to Search'}
       </button>
-      <div className="">
-        {isSearch ? <SearchView /> : <DateView />}
-      </div>
+      <div className="">{isSearch ? <SearchView /> : <DateView />}</div>
     </div>
   )
 }
