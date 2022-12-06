@@ -5,4 +5,4 @@ from indexer.src.sources.imessage import get_imessage_records
 
 def get_records(db: Database):
     get_imessage_records(db)
-    # get_messenger_records(db)
+    get_messenger_records(db)

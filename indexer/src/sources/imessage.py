@@ -24,8 +24,6 @@ def get_imessage_records(db: Database):
         chat
     JOIN chat_message_join ON chat. "ROWID" = chat_message_join.chat_id
     JOIN message ON chat_message_join.message_id = message. "ROWID"
-    ORDER BY
-        message_date ASC;
     """)
     db_entries = []
     for message in messages:

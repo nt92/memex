@@ -1,57 +1,26 @@
 import { useState, useEffect } from 'react'
-import {useSupabaseClient, Session, useUser} from '@supabase/auth-helpers-react'
-import { Database } from '../utils/database.types'
-type Record = Database['public']['Tables']['records']['Row']
+import { Session } from '@supabase/auth-helpers-react'
+import DateView from "./DateView";
+import SearchView from "./SearchView";
 
 export default function Dashboard({ session }: { session: Session }) {
-  const supabase = useSupabaseClient<Database>()
-  const user = useUser()
-  const [searchTerm, setSearchTerm] = useState('')
-  const [records, setRecords] = useState<Record[]>([])
-  const [loading, setLoading] = useState(true)
+  const [isSearch, setIsSearch] = useState(true)
 
   useEffect(() => {
     // Load initial data (if any)
   }, [session])
 
-  async function getRecordsBySearch() {
-    try {
-      setLoading(true)
-      if (!user) throw new Error('No user')
-
-      let { data, error, status } = await supabase
-        .from('records')
-        .select(`id, source, title, content, time, link`)
-        .like('content', '%' + searchTerm + '%')
-        .order('time', { ascending: false })
-
-      if (error && status !== 406) {
-        throw error
-      }
-
-      if (data) {
-        setRecords(data)
-      }
-    } catch (error) {
-      alert('Error loading user data!')
-      console.log(error)
-    } finally {
-      setLoading(false)
-    }
-  }
-
   return (
-    <div>
-      <div className="searchInput">
-        <input type="text" placeholder="Search" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-      </div>
-      <button onClick={getRecordsBySearch}>Search</button>
-      <div className="records">
-        {records.map((record) => (
-          <div key={record.id}>
-            <p>[{record.time}] {record.title}: {record.content}</p>
-          </div>
-        ))}
+    <div className="w-full max-w-md mx-auto">
+      <button
+        type="button"
+        onClick={() => setIsSearch(!isSearch)}
+        className="py-2 px-3 my-2 rounded-md text-sm font-medium leading-5 text-gray-700 hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 bg-gray-100 active:text-gray-800"
+      >
+        {isSearch ? 'Switch to Date' : 'Switch to Search'}
+      </button>
+      <div className="">
+        {isSearch ? <SearchView /> : <DateView />}
       </div>
     </div>
   )

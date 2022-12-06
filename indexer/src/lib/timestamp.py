@@ -6,7 +6,7 @@ def to_timestamp(time_string: str) -> int:
 
 
 def from_timestamp(timestamp: int) -> datetime:
-    return datetime.fromtimestamp(timestamp)
+    return datetime.utcfromtimestamp(timestamp)
 
 
 def date_to_range(date: str) -> (int, int):
