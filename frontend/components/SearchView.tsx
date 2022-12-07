@@ -58,12 +58,19 @@ export default function SearchView() {
       </div>
       <ul className="mt-3 list-none">
         {records.map((record) => (
-          <li
+          <div
             key={record.id}
-            className="py-1 px-3 rounded-md text-sm font-medium leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
+            className="py-2 flex rounded-md hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
           >
-            [{parseDate(record.time)}] {record.title}: {record.content}
-          </li>
+            <li className="py-1 px-3 min-w-[180px] text-xs font-medium text-gray-500">
+              {parseDate(record.time)}
+            </li>
+            <li className="py-0.5 px-3 text-sm font-medium leading-5 text-gray-700">
+              {record.title}
+              <br />
+              {record.content}
+            </li>
+          </div>
         ))}
       </ul>
     </div>

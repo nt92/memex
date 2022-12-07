@@ -11,7 +11,7 @@ export default function Dashboard({ session }: { session: Session }) {
   }, [session])
 
   return (
-    <div className="w-full max-w-md mx-auto">
+    <div className="w-full max-w-2xl mx-auto">
       <button
         type="button"
         onClick={() => setIsSearch(!isSearch)}
