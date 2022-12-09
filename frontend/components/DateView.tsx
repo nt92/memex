@@ -9,11 +9,9 @@ const DateView = () => {
   const user = useUser()
   const [date, setDate] = useState('')
   const [records, setRecords] = useState<Record[]>([])
-  // const [loading, setLoading] = useState(true)
 
   async function getRecordsByDates() {
     try {
-      // setLoading(true)
       if (!user) throw new Error('No user')
 
       const dateObj = new Date(date + ' 00:00:00')
@@ -41,7 +39,6 @@ const DateView = () => {
       alert('Error loading user data!')
       console.log(error)
     } finally {
-      // setLoading(false)
     }
   }
 

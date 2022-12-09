@@ -9,11 +9,9 @@ export default function SearchView() {
   const user = useUser()
   const [searchTerm, setSearchTerm] = useState('')
   const [records, setRecords] = useState<Record[]>([])
-  // const [loading, setLoading] = useState(true)
 
   async function getRecordsBySearch() {
     try {
-      // setLoading(true)
       if (!user) throw new Error('No user')
 
       const { data, error, status } = await supabase
@@ -34,7 +32,6 @@ export default function SearchView() {
       alert('Error loading user data!')
       console.log(error)
     } finally {
-      // setLoading(false)
     }
   }
 
