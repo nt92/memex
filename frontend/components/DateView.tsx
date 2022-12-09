@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { parseDate } from '../utils/utils'
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 import { Database } from '../utils/database.types'
+import { Timeline, TimelineEvent } from './timeline'
 type Record = Database['public']['Tables']['records']['Row']
 
 const DateView = () => {
@@ -59,17 +60,18 @@ const DateView = () => {
           Search
         </button>
       </div>
-      <ul className="mt-3 list-none">
+      <Timeline>
         {records.map((record) => (
-          <li
+          <TimelineEvent
             key={record.id}
-            className="py-1 px-3 rounded-md text-sm font-medium leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-50 active:text-gray-800"
+            title={record.title}
+            createdAt={parseDate(record.time)}
+            icon={<i className="material-icons md-18">{record.source}</i>}
           >
-            [{parseDate(record.time)}] {record.time} {record.title}:{' '}
             {record.content}
-          </li>
+          </TimelineEvent>
         ))}
-      </ul>
+      </Timeline>
     </div>
   )
 }
