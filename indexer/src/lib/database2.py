@@ -16,3 +16,10 @@ class Database:
 
     def save_records(self, records):
         self.supabase.table('records').insert(records).execute()
+
+    def save_location(self, title, start_time, end_time):
+        record = {'title': title, 'start_time': start_time, 'end_time': end_time}
+        self.supabase.table('locations').insert(record).execute()
+
+    def save_locations(self, locations):
+        self.supabase.table('locations').insert(locations).execute()
