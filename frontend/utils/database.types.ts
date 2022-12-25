@@ -34,7 +34,7 @@ export interface Database {
           avatar_url?: string | null
           website?: string | null
         }
-      },
+      }
       records: {
         Row: {
           id: string
@@ -43,6 +43,14 @@ export interface Database {
           content: string
           time: string
           link: string | null
+        }
+      }
+      locations: {
+        Row: {
+          id: string
+          title: string
+          start_time: string
+          end_time: string
         }
       }
     }

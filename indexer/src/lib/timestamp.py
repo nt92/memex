@@ -1,4 +1,5 @@
 import re
+import calendar
 from datetime import datetime
 
 
@@ -8,7 +9,7 @@ def to_timestamp(time_string: str) -> int:
 
 def to_timestamp_loc(time_string: str) -> datetime:
     remove_fraction = re.sub(r"\.\d+", "", time_string)
-    timestamp_int = round(datetime.strptime(remove_fraction, "%Y-%m-%dT%H:%M:%SZ").timestamp())
+    timestamp_int = calendar.timegm(datetime.strptime(remove_fraction, "%Y-%m-%dT%H:%M:%SZ").utctimetuple())
     return datetime.utcfromtimestamp(timestamp_int)
 
 
