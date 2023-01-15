@@ -1,4 +1,4 @@
-# Nikhil's Search Engine (Memex)
+# Nikhil's Memex
 
 ## Overview
 This is my attempt at making a tool that will be able to pull in data from many different sources where I've left a digital footprint and aggregate them into a uniform index that I can search through.
